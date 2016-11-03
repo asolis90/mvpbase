@@ -3,6 +3,7 @@
     package="com.asolis.mvpexample" >
 
     <application
+        android:name=".application.MVPBaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
