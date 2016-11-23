@@ -5,4 +5,6 @@ package com.asolis.mvpexample.ui.base;
  */
 
 public interface BaseView {
+    void doShowError(String s);
+    void doShowNetworkError();
 }

@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">MVP BASE Example</string>
+    <string name="network_error">Check your network connection and try again.</string>
+    <string name="generic_error">An error occurred, please try again</string>
+    <string name="bluetooth_not_found">Device does not support Bluetooth</string>
+    <string name="network_issue">Sorry, an error has occurred, please try again.</string>
+    <string name="retry">Retry</string>
+    <string name="waking_ibag">Waking your iBag</string>
+    <string name="waking_ibag_msg_body">Click and hold your iBag for 3 seconds..</string>
+    <string name="waking_ibag_msg_sub_body">A green light will appear indicating that it\'s awake.</string>
+    <string name="connecting">Connecting..</string>
+    <string name="connected">Connected!</string>
+    <string name="disconnected">Disconnected from Device!</string>
+    <string name="next">Next</string>
+    <string name="finding_ibag">Finding nearby Ibag</string>
+    <string name="finding_ibag_msg_body">Linking to nearby Ibag..</string>
+    <string name="error_location_permissions"> Invallid Location Permissions..</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="cancel">Cancel</string>
+    <string name="device_not_found">Device Not Found</string>
+    <string name="device_not_found_sub">Unable to find device..</string>
+    <string name="unable_to_proceed">Unable to proceed without a connected device!</string>
 </resources>

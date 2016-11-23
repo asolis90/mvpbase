@@ -1,5 +1,9 @@
 package com.asolis.mvpexample.ui.main;
 
+
+
+import android.support.v4.app.Fragment;
+
 import com.asolis.mvpexample.ui.base.BaseView;
 
 /**
@@ -8,4 +12,5 @@ import com.asolis.mvpexample.ui.base.BaseView;
 
 public interface MainActivityView extends BaseView {
     void doShowToast();
+    void doShowFragment(Fragment fragment, String TAG);
 }
