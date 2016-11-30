@@ -21,4 +21,12 @@
     <string name="device_not_found">Device Not Found</string>
     <string name="device_not_found_sub">Unable to find device..</string>
     <string name="unable_to_proceed">Unable to proceed without a connected device!</string>
+    <string name="start_enrollment">Let\'s Start</string>
+    <string name="start_enrollment_sub">Put your finger on the sensor..</string>
+    <string name="start_enrollment_2">Keep going</string>
+    <string name="start_enrollment_2_sub">Lift your finger. Then place same finger again.</string>
+    <string name="start_enrollment_3">Almost there</string>
+    <string name="start_enrollment_3_sub">Lift your finger. Place same finger one more time.</string>
+    <string name="fingerprint_added">Fingerprint Added!</string>
+    <string name="fingerprint_added_sub">Fingerprint added Successfuly.</string>
 </resources>

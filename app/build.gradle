@@ -45,4 +45,7 @@ dependencies {
 
     // Nammu for managing Android M+ permissions
     compile 'com.github.tajchert:nammu:1.1.1'
+
+    //Circular chart view
+    compile 'com.github.bmarrdev:android-DecoView-charting:v0.9.5'
 }

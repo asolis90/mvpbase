@@ -8,6 +8,8 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +30,7 @@ import com.asolis.mvpexample.recyclerview.adapter.DrawerAdapter;
 import com.asolis.mvpexample.recyclerview.models.DrawerItem;
 import com.asolis.mvpexample.ui.base.ble.BaseBLEActivity;
 import com.asolis.mvpexample.ui.fingerprint.FingerprintFragment;
+import com.asolis.mvpexample.ui.fingerprintenroll.FingerprintEnrollFragment;
 import com.asolis.mvpexample.util.PreferenceManager;
 
 import java.util.ArrayList;
@@ -70,39 +73,57 @@ public class MainActivity extends BaseBLEActivity<MainActivityPresenter, MainAct
 
     @Override
     public void onDataAvailable(String data) {
-        // TODO: handle data available
         switch (data) {
-            case CharacteristicHelper.FINGERPRINT_SETUP_ENROLL_REMOVE_FINGER:
+            case CharacteristicHelper.FINGERPRINT_SETUP_ENROLL_START:
+                Log.e("fingerprint setup", "start");
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_container, FingerprintEnrollFragment.newInstance(),
+                                FingerprintEnrollFragment.FRAGMENT_FINGERPRINT_TAG)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case CharacteristicHelper.FINGERPRINT_SETUP_ENROLL_PRESS_FINGER:
+                Log.e("fingerprint setup", "press finger");
+                FingerprintEnrollFragment fef_press = (FingerprintEnrollFragment) getSupportFragmentManager().findFragmentByTag(FingerprintEnrollFragment.FRAGMENT_FINGERPRINT_TAG);
+                if (fef_press != null) {
+                    fef_press.doUpdateUI(fef_press.UPDATE_TYPE_PRESS_FINGER);
+                }
+                break;
+            case CharacteristicHelper.FINGERPRINT_SETUP_ENROLL_REMOVE_FINGER:
+                Log.e("fingerprint setup", "remove finger");
+                FingerprintEnrollFragment fef_remove = (FingerprintEnrollFragment) getSupportFragmentManager().findFragmentByTag(FingerprintEnrollFragment.FRAGMENT_FINGERPRINT_TAG);
+                if (fef_remove != null) {
+                    fef_remove.doUpdateUI(fef_remove.UPDATE_TYPE_REMOVE_FINGER);
+                }
                 break;
             case CharacteristicHelper.FINGERPRINT_SETUP_ENROLL_PRESS_SAME_FINGER:
-                Toast.makeText(getApplicationContext(), "Successfully deleted all Fingerprints!", Toast.LENGTH_SHORT).show();
-                FingerprintFragment rf = (FingerprintFragment) getSupportFragmentManager().findFragmentByTag(FingerprintFragment.FRAGMENT_FINGERPRINT_TAG)
-                if (rf != null) {
-
+                Log.e("fingerprint setup", "press again finger");
+                FingerprintEnrollFragment fef_press_again = (FingerprintEnrollFragment) getSupportFragmentManager().findFragmentByTag(FingerprintEnrollFragment.FRAGMENT_FINGERPRINT_TAG);
+                if (fef_press_again != null) {
+                    fef_press_again.doUpdateUI(fef_press_again.UPDATE_TYPE_PRESS_FINGER_AGAIN);
                 }
                 break;
             case CharacteristicHelper.FINGERPRINT_SETUP_ENROLL_SUCCESS:
-                Toast.makeText(getApplicationContext(), "Successfully deleted all Fingerprints!", Toast.LENGTH_SHORT).show();
-                FingerprintFragment rf = (FingerprintFragment) getSupportFragmentManager().findFragmentByTag(FingerprintFragment.FRAGMENT_FINGERPRINT_TAG)
-                if (rf != null) {
-
+                Log.e("fingerprint setup", "success");
+                FingerprintEnrollFragment fef_success = (FingerprintEnrollFragment) getSupportFragmentManager().findFragmentByTag(FingerprintEnrollFragment.FRAGMENT_FINGERPRINT_TAG);
+                if (fef_success != null) {
+                    fef_success.doUpdateUI(fef_success.UPDATE_TYPE_SUCCESS);
                 }
                 break;
-            case CharacteristicHelper.FINGERPRINT_SETUP_ENROLL__ERROR:
-                Toast.makeText(getApplicationContext(), "Successfully deleted all Fingerprints!", Toast.LENGTH_SHORT).show();
-                FingerprintFragment rf = (FingerprintFragment) getSupportFragmentManager().findFragmentByTag(FingerprintFragment.FRAGMENT_FINGERPRINT_TAG)
-                if (rf != null) {
-
+            case CharacteristicHelper.FINGERPRINT_SETUP_ENROLL_ERROR:
+                Log.e("fingerprint setup", "error");
+                FingerprintEnrollFragment fef_error = (FingerprintEnrollFragment) getSupportFragmentManager().findFragmentByTag(FingerprintEnrollFragment.FRAGMENT_FINGERPRINT_TAG);
+                if (fef_error != null) {
+                    fef_error.doUpdateUI(fef_error.UPDATE_TYPE_ERROR);
                 }
                 break;
             case CharacteristicHelper.FINGERPRINT_DELETE_ALL_SUCCESS:
                 Toast.makeText(getApplicationContext(), "Successfully deleted all Fingerprints!", Toast.LENGTH_SHORT).show();
-                FingerprintFragment ff = (FingerprintFragment) getSupportFragmentManager().findFragmentByTag(FingerprintFragment.FRAGMENT_FINGERPRINT_TAG)
-                if (ff != null) {
+                FingerprintFragment ff_delete_all = (FingerprintFragment) getSupportFragmentManager().findFragmentByTag(FingerprintFragment.FRAGMENT_FINGERPRINT_TAG);
+                if (ff_delete_all != null) {
                     // clear all the fingerprints
-                    ff.clearData();
+                    ff_delete_all.clearData();
                 }
                 break;
             case CharacteristicHelper.FINGERPRINT_DELETE_ALL_ERROR:
@@ -208,7 +229,18 @@ public class MainActivity extends BaseBLEActivity<MainActivityPresenter, MainAct
     }
 
     @Override
-    public void doShowFragment(Fragment fragment, String fragmentTag) {
+    public void doShowFragmentWithStack(Fragment fragment, String fragmentTag) {
+        getSupportFragmentManager().popBackStackImmediate(null, FragmentManager
+                .POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, fragment, fragmentTag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void doShowFragmentWithoutStack(Fragment fragment, String fragmentTag) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, fragment, fragmentTag)
@@ -216,13 +248,101 @@ public class MainActivity extends BaseBLEActivity<MainActivityPresenter, MainAct
     }
 
     // get fingerprint count
-    public void getFingerprintCount(){
+    public void getFingerprintCount() {
         BluetoothGattCharacteristic characteristic = mBluetoothLeService
                 .getCharacteristic(BLEService.UUID_BLE_SHIELD_TX);
 
         String str = CharacteristicHelper.BLE_DEVICE_ENROLL_COUNT;
         byte[] tmp = str.getBytes();
+        byte[] tx = new byte[16];
+        for (int i = 0; i < tmp.length; i++) {
+            tx[i] = tmp[i];
+        }
         characteristic.setValue(tmp);
+        mBluetoothLeService.writeCharacteristic(characteristic);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    // delete all fingerprints
+    public void deleteAllFingerprints() {
+        BluetoothGattCharacteristic characteristic = mBluetoothLeService
+                .getCharacteristic(BLEService.UUID_BLE_SHIELD_TX);
+
+        String str = CharacteristicHelper.BLE_DEVICE_FINGERPRINT_DELETE_ALL;
+        byte[] tmp = str.getBytes();
+        byte[] tx = new byte[16];
+        for (int i = 0; i < tmp.length; i++) {
+            tx[i] = tmp[i];
+        }
+        characteristic.setValue(tmp);
+        mBluetoothLeService.writeCharacteristic(characteristic);
+    }
+
+    // start enroll of fingerprints
+    public void startFingerprintEnroll() {
+        BluetoothGattCharacteristic characteristic = mBluetoothLeService
+                .getCharacteristic(BLEService.UUID_BLE_SHIELD_TX);
+
+        String str = CharacteristicHelper.BLE_DEVICE_ENROLL_START;
+        byte[] tmp = str.getBytes();
+        byte[] tx = new byte[16];
+        for (int i = 0; i < tmp.length; i++) {
+            tx[i] = tmp[i];
+        }
+        characteristic.setValue(tx);
+        mBluetoothLeService.writeCharacteristic(characteristic);
+    }
+
+    // start enroll_1 of fingerprint
+    public void startFingerprintEnroll_1() {
+        BluetoothGattCharacteristic characteristic = mBluetoothLeService
+                .getCharacteristic(BLEService.UUID_BLE_SHIELD_TX);
+
+        String str = CharacteristicHelper.BLE_DEVICE_ENROLL_1;
+        byte[] tmp = str.getBytes();
+        byte[] tx = new byte[16];
+        for (int i = 0; i < tmp.length; i++) {
+            tx[i] = tmp[i];
+        }
+        characteristic.setValue(tx);
+        mBluetoothLeService.writeCharacteristic(characteristic);
+    }
+
+    // start enroll_2 of fingerprint
+    public void startFingerprintEnroll_2() {
+        BluetoothGattCharacteristic characteristic = mBluetoothLeService
+                .getCharacteristic(BLEService.UUID_BLE_SHIELD_TX);
+
+        String str = CharacteristicHelper.BLE_DEVICE_ENROLL_2;
+        byte[] tmp = str.getBytes();
+        byte[] tx = new byte[16];
+        for (int i = 0; i < tmp.length; i++) {
+            tx[i] = tmp[i];
+        }
+        characteristic.setValue(tx);
+        mBluetoothLeService.writeCharacteristic(characteristic);
+    }
+
+    // start enroll_3 of fingerprint
+    public void startFingerprintEnroll_3() {
+        BluetoothGattCharacteristic characteristic = mBluetoothLeService
+                .getCharacteristic(BLEService.UUID_BLE_SHIELD_TX);
+
+        String str = CharacteristicHelper.BLE_DEVICE_ENROLL_3;
+        byte[] tmp = str.getBytes();
+        byte[] tx = new byte[16];
+        for (int i = 0; i < tmp.length; i++) {
+            tx[i] = tmp[i];
+        }
+        characteristic.setValue(tx);
         mBluetoothLeService.writeCharacteristic(characteristic);
     }
 }

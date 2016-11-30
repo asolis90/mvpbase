@@ -4,6 +4,7 @@ import com.asolis.mvpexample.dagger.module.ApplicationModule;
 import com.asolis.mvpexample.dagger.module.UIModule;
 import com.asolis.mvpexample.ui.discover.DiscoverBLEActivity;
 import com.asolis.mvpexample.ui.fingerprint.FingerprintFragment;
+import com.asolis.mvpexample.ui.fingerprintenroll.FingerprintEnrollFragment;
 import com.asolis.mvpexample.ui.home.HomeFragment;
 import com.asolis.mvpexample.ui.lights.LightsFragment;
 import com.asolis.mvpexample.ui.main.MainActivity;
@@ -29,4 +30,5 @@ public interface ApplicationComponent {
     void inject(HomeFragment homeFragment);
     void inject(LightsFragment lightsFragment);
     void inject(FingerprintFragment fingerprintFragment);
+    void inject(FingerprintEnrollFragment fingerprintEnrollFragment);
 }

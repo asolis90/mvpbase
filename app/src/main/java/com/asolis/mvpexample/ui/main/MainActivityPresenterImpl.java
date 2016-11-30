@@ -1,5 +1,7 @@
 package com.asolis.mvpexample.ui.main;
 
+import android.support.v4.app.FragmentManager;
+
 import com.asolis.mvpexample.recyclerview.models.DrawerItem;
 import com.asolis.mvpexample.ui.base.BasePresenterImpl;
 import com.asolis.mvpexample.ui.fingerprint.FingerprintFragment;
@@ -17,7 +19,7 @@ public class MainActivityPresenterImpl extends BasePresenterImpl<MainActivityVie
     public void onInit() {
         currentItem = new DrawerItem();
         currentItem.setTitle("Home");
-        getView().doShowFragment(HomeFragment.newInstance(), HomeFragment.FRAGMENT_HOME_TAG);
+        getView().doShowFragmentWithoutStack(HomeFragment.newInstance(), HomeFragment.FRAGMENT_HOME_TAG);
     }
 
     @Override
@@ -28,13 +30,13 @@ public class MainActivityPresenterImpl extends BasePresenterImpl<MainActivityVie
 
         switch (item.getTitle()) {
             case "Home":
-                getView().doShowFragment(HomeFragment.newInstance(), HomeFragment.FRAGMENT_HOME_TAG);
+                getView().doShowFragmentWithStack(HomeFragment.newInstance(), HomeFragment.FRAGMENT_HOME_TAG);
                 break;
             case "Lights":
-                getView().doShowFragment(LightsFragment.newInstance(), LightsFragment.FRAGMENT_LIGHTS_TAG);
+                getView().doShowFragmentWithStack(LightsFragment.newInstance(), LightsFragment.FRAGMENT_LIGHTS_TAG);
                 break;
             case "Fingerprints":
-                getView().doShowFragment(FingerprintFragment.newInstance(), FingerprintFragment.FRAGMENT_FINGERPRINT_TAG);
+                getView().doShowFragmentWithStack(FingerprintFragment.newInstance(), FingerprintFragment.FRAGMENT_FINGERPRINT_TAG);
                 break;
         }
     }

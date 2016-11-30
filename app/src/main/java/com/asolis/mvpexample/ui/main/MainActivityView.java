@@ -12,5 +12,6 @@ import com.asolis.mvpexample.ui.base.BaseView;
 
 public interface MainActivityView extends BaseView {
     void doShowToast();
-    void doShowFragment(Fragment fragment, String TAG);
+    void doShowFragmentWithStack(Fragment fragment, String TAG);
+    void doShowFragmentWithoutStack(Fragment fragment, String TAG);
 }
