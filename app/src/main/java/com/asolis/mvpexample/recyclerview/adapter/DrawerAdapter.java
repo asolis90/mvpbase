@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 
 import com.asolis.mvpexample.R;
 import com.asolis.mvpexample.recyclerview.models.DrawerItem;
+import com.asolis.mvpexample.recyclerview.viewholders.DrawerHeaderViewHolder;
 import com.asolis.mvpexample.recyclerview.viewholders.DrawerViewHolder;
+import com.asolis.mvpexample.recyclerview.viewholders.FingerprintViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +22,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private ArrayList<DrawerItem> data = new ArrayList<>();
     private Context context;
-    private int VIEW_TYPE_DRAWER_ITEM = 0;
+    private int VIEW_TYPE_DRAWER_HEADER_ITEM = 0;
+    private int VIEW_TYPE_DRAWER_ITEM = 1;
 
     private OnclickListener onclickListener;
+    private OnHeaderClickListener onHeaderClickListener;
 
     public DrawerAdapter(Context context, List<DrawerItem> data) {
         this.context = context;
@@ -31,6 +35,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
+        if (position == 0) {
+            return VIEW_TYPE_DRAWER_HEADER_ITEM;
+        }
         return VIEW_TYPE_DRAWER_ITEM;
     }
 
@@ -39,6 +46,9 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (viewType == VIEW_TYPE_DRAWER_ITEM) {
             View view = LayoutInflater.from(context).inflate(R.layout.drawer_item, parent, false);
             return new DrawerViewHolder(view, onclickListener);
+        } else if (viewType == VIEW_TYPE_DRAWER_HEADER_ITEM) {
+            View view = LayoutInflater.from(context).inflate(R.layout.drawer_header_item, parent, false);
+            return new DrawerHeaderViewHolder(view, onHeaderClickListener);
         }
         return null;
     }
@@ -47,6 +57,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof DrawerViewHolder) {
             ((DrawerViewHolder) holder).bind(data.get(position));
+        } else if (holder instanceof DrawerHeaderViewHolder) {
+            // TODO: handle user data
         }
     }
 
@@ -69,7 +81,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void addItems(List<DrawerItem> list) {
-        if(list != null){
+        if (list != null) {
             data.addAll(list);
         }
         notifyDataSetChanged();
@@ -84,7 +96,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.onclickListener = onclickListener;
     }
 
+    public void setOnHeaderclickListener(OnHeaderClickListener onclickListener) {
+        this.onHeaderClickListener = onclickListener;
+    }
+
     public interface OnclickListener {
         void onClick(View view, DrawerItem item);
+    }
+
+    public interface OnHeaderClickListener {
+        void onClick(View view);
     }
 }

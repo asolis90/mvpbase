@@ -1,15 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ui.main.MainActivity">
+    <ImageView
+        android:id="@+id/fragment_home_bag_iv"
+        android:layout_width="120dp"
+        android:layout_centerInParent="true"
+        android:layout_height="120dp"
+        android:background="@drawable/bag_icon"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/fragment_home_model_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/fragment_home_bag_iv"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Model: "
+            app:layout_constraintBottom_toBottomOf="@+id/activity_main"
+            app:layout_constraintLeft_toLeftOf="@+id/activity_main"
+            app:layout_constraintRight_toRightOf="@+id/activity_main"
+            app:layout_constraintTop_toTopOf="@+id/activity_main" />
+
+        <TextView
+            android:id="@+id/fragment_home_model_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123-123-123"
+            app:layout_constraintBottom_toBottomOf="@+id/activity_main"
+            app:layout_constraintLeft_toLeftOf="@+id/activity_main"
+            app:layout_constraintRight_toRightOf="@+id/activity_main"
+            app:layout_constraintTop_toTopOf="@+id/activity_main" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_home_status_ll"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/fragment_home_model_ll"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -27,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Connected"
+            android:paddingRight="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/activity_main"
             app:layout_constraintLeft_toLeftOf="@+id/activity_main"
             app:layout_constraintRight_toRightOf="@+id/activity_main"
@@ -34,14 +73,18 @@
 
         <ImageView
             android:id="@+id/fragment_home_status_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/status_icon"/>
     </LinearLayout>
-
     <Button
-        android:id="@+id/send"
+        android:id="@+id/fragment_home_connect_btn"
+        android:layout_below="@+id/fragment_home_status_ll"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="send" />
+        android:text="Reconnect"/>
 
-</LinearLayout>
+</RelativeLayout>

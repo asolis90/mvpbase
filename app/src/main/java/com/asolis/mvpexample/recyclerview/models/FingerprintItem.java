@@ -6,9 +6,9 @@ package com.asolis.mvpexample.recyclerview.models;
 
 public class FingerprintItem {
     private String title;
-    private String enrollId;
+    private int enrollId;
 
-    public FingerprintItem(String title, String enrollId) {
+    public FingerprintItem(String title, int enrollId) {
         this.title = title;
         this.enrollId = enrollId;
     }
@@ -17,11 +17,11 @@ public class FingerprintItem {
         this.title = title;
     }
 
-    public String getEnrollId() {
+    public int getEnrollId() {
         return enrollId;
     }
 
-    public void setEnrollId(String enrollId) {
+    public void setEnrollId(int enrollId) {
         this.enrollId = enrollId;
     }
 

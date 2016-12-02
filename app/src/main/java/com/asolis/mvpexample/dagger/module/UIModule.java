@@ -4,6 +4,8 @@ import com.asolis.mvpexample.ui.discover.DiscoverBLEActivityPresenter;
 import com.asolis.mvpexample.ui.discover.DiscoverBLEActivityPresenterImpl;
 import com.asolis.mvpexample.ui.fingerprint.FingerprintFragmentPresenter;
 import com.asolis.mvpexample.ui.fingerprint.FingerprintFragmentPresenterImpl;
+import com.asolis.mvpexample.ui.fingerprintenroll.FingerprintEnrollActivityPresenter;
+import com.asolis.mvpexample.ui.fingerprintenroll.FingerprintEnrollActivityPresenterImpl;
 import com.asolis.mvpexample.ui.fingerprintenroll.FingerprintEnrollFragmentPresenter;
 import com.asolis.mvpexample.ui.fingerprintenroll.FingerprintEnrollFragmentPresenterImpl;
 import com.asolis.mvpexample.ui.home.HomeFragmentPresenter;
@@ -66,5 +68,11 @@ public class UIModule {
     @Singleton
     FingerprintEnrollFragmentPresenter fingerprintEnrollFragmentPresenter() {
         return new FingerprintEnrollFragmentPresenterImpl();
+    }
+
+    @Provides
+    @Singleton
+    FingerprintEnrollActivityPresenter providesFingerprintEnrollActivityPresenter() {
+        return new FingerprintEnrollActivityPresenterImpl();
     }
 }

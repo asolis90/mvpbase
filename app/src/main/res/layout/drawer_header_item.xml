@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_item_rl"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@drawable/drawer_header_clickable_item_background">
+
+    <ImageView
+        android:id="@+id/drawer_header_item_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="28dp"
+        android:src="@drawable/logo_white"
+        android:layout_centerVertical="true"
+        android:paddingBottom="10dp"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:id="@+id/drawer_header_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="Smart Bag"
+        android:layout_marginLeft="28dp"
+        android:textSize="16dp"
+        android:textColor="#fff"
+        android:layout_below="@id/drawer_header_item_iv"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#000"/>
+
+</RelativeLayout>

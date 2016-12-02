@@ -11,6 +11,7 @@ public class PreferenceManager {
     private static final String PREFERENCE_FILE = "tech-bag-app-preference";
     private static final String PREF_DEVICE_STATUS = "device-status";
     private static final String PREF_DEVICE_ADDRESS = "device-address";
+    private static final String PREF_DISCONNECT_MANUALLY = "disconnect-manually";
 
     // Device Status
 
@@ -25,7 +26,6 @@ public class PreferenceManager {
     }
 
     // Device Address
-
     public static void setDeviceAddress(Context context, String value) {
         context.getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE).edit()
                 .putString(PREF_DEVICE_ADDRESS, value).apply();
@@ -34,5 +34,15 @@ public class PreferenceManager {
     public static String getDeviceAddress(Context context) {
         return context.getSharedPreferences(PREFERENCE_FILE,
                 Context.MODE_PRIVATE).getString(PREF_DEVICE_ADDRESS, null);
+    }
+
+    // Device Address
+    public static void setDisconnectManually(Context context, boolean value) {
+        context.getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE).edit()
+                .putBoolean(PREF_DISCONNECT_MANUALLY, value).apply();
+    }
+    public static boolean isDisconnectedManually(Context context) {
+        return context.getSharedPreferences(PREFERENCE_FILE,
+                Context.MODE_PRIVATE).getBoolean(PREF_DISCONNECT_MANUALLY, false);
     }
 }

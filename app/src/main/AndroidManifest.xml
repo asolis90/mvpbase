@@ -41,6 +41,20 @@
             android:theme="@style/AppTheme.NoActionBar.FullScreen"  >
         </activity>
 
+        <activity
+            android:name=".ui.fingerprintenroll.FingerprintEnrollActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"  >
+        </activity>
+
+        <service
+            android:name=".ble.BLEService"
+            android:process=":ble_process" />
+
+        <service
+            android:name=".ble.AdvertiserService"
+            android:process=":ble_adv" />
+
     </application>
 
 </manifest>

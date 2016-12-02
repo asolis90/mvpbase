@@ -30,4 +30,7 @@
     <dimen name="text_size_p_small">12sp</dimen>
     <dimen name="text_size_p_xsmall">10sp</dimen>
     <dimen name="text_size_p_xxsmall">8sp</dimen>
+
+    <!-- toolbar -->
+    <integer name="action_bar_elevation">7</integer>
 </resources>

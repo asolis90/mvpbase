@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.asolis.mvpexample"
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -26,10 +26,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:design:24.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
-    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
     testCompile 'junit:junit:4.12'
+
+    // CardView
+    compile 'com.android.support:cardview-v7:23.1.0'
 
     // Dagger 2
     apt 'com.google.dagger:dagger-compiler:2.0'

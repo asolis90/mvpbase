@@ -1,10 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_export"
-        android:title="disconnect"
+        android:id="@+id/action_disconnect"
+        android:title="Disconnect Bag"
         app:showAsAction="never" />
-
 </menu>

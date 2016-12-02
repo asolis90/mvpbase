@@ -9,5 +9,6 @@ import com.asolis.mvpexample.ui.base.BasePresenterImpl;
 public class FingerprintEnrollFragmentPresenterImpl extends BasePresenterImpl<FingerprintEnrollFragmentView> implements FingerprintEnrollFragmentPresenter {
     @Override
     public void onInit() {
+        getView().doEnroll_1();
     }
 }

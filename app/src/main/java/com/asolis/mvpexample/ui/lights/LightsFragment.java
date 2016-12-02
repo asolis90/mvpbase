@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.asolis.mvpexample.R;
 import com.asolis.mvpexample.ble.BLEService;
+import com.asolis.mvpexample.ble.util.CharacteristicHelper;
 import com.asolis.mvpexample.dagger.component.ApplicationComponent;
 import com.asolis.mvpexample.ui.base.BaseFragment;
 import com.asolis.mvpexample.ui.main.MainActivity;
@@ -48,19 +49,6 @@ public class LightsFragment extends BaseFragment<LightsFragmentPresenter, Lights
 
     @Override
     public void doShowToast() {
-    }
-
-
-    @OnClick(R.id.send)
-    public void onClick(View v) {
-        MainActivity mainActivity = (MainActivity) getActivity();
-        BluetoothGattCharacteristic characteristic = mainActivity.mBluetoothLeService
-                .getCharacteristic(BLEService.UUID_BLE_SHIELD_TX);
-
-        String str = "test";
-        byte[] tmp = str.getBytes();
-        characteristic.setValue(tmp);
-        mainActivity.mBluetoothLeService.writeCharacteristic(characteristic);
     }
 
     @Override

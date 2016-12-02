@@ -2,6 +2,7 @@ package com.asolis.mvpexample.util;
 
 import android.Manifest;
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import pl.tajchert.nammu.Nammu;

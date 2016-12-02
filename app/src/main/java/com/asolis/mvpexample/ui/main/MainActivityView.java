@@ -14,4 +14,5 @@ public interface MainActivityView extends BaseView {
     void doShowToast();
     void doShowFragmentWithStack(Fragment fragment, String TAG);
     void doShowFragmentWithoutStack(Fragment fragment, String TAG);
+    void doSetToolbarTitle(String title);
 }

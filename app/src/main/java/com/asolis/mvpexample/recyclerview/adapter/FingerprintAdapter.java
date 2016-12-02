@@ -57,6 +57,7 @@ public class FingerprintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void clear() {
         data.clear();
+        notifyDataSetChanged();
     }
 
     public ArrayList<FingerprintItem> getData() {
@@ -85,6 +86,6 @@ public class FingerprintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public interface OnclickListener {
-        void onClick(FingerprintItem item);
+        void onClick(View view, FingerprintItem item);
     }
 }

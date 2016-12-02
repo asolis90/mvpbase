@@ -5,11 +5,12 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.asolis.mvpexample.R;
-import com.asolis.mvpexample.ble.BLEManager2;
+import com.asolis.mvpexample.ble.BLEManager;
 import com.asolis.mvpexample.ui.base.BaseActivity;
 import com.asolis.mvpexample.ui.base.BasePresenter;
 import com.asolis.mvpexample.ui.base.BaseView;
@@ -28,22 +29,22 @@ import pl.tajchert.nammu.Nammu;
  */
 
 public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>, View extends BaseView>
-        extends BaseActivity<Presenter, View> implements BLEManager2.OnBluetoothManagerListener {
+        extends BaseActivity<Presenter, View> implements BLEManager.OnBluetoothManagerListener {
     private static final String TAG = BaseBLEStartActivity.class.getSimpleName();
 
     private static final int REQUEST_ENABLE_BT = 1;
     private static int mTotalActivityCount = 0;
     public BluetoothDevice mBluetoothLeDevice;
     private boolean isScanning = false;
-    private BLEManager2 mBLEManager2;
+    private BLEManager mBLEManager;
     private CountDownTimer mTimer = new CountDownTimer(5000, 1000) {
 
         public void onTick(long millisUntilFinished) {
         }
 
         public void onFinish() {
-            if (mBLEManager2 != null) {
-                mBLEManager2.stopScanning();
+            if (mBLEManager != null) {
+                mBLEManager.stopScanning();
                 Toast.makeText(getApplicationContext(), "Not able to find a Device..", Toast.LENGTH_SHORT).show();
                 isScanning = false;
                 mViewPager.setCurrentItem(0);
@@ -68,8 +69,8 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
     }
 
     private void initializeBLEManager() {
-        mBLEManager2 = new BLEManager2(this);
-        mBLEManager2.setOnDeviceFoundListener(this);
+        mBLEManager = new BLEManager(this);
+        mBLEManager.setOnDeviceFoundListener(this);
     }
 
     @Override
@@ -103,9 +104,9 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
                                 if (result) {
                                     Log.e("onResult - onPause", "here");
                                     isScanning = false;
-                                    if (mBLEManager2 != null) {
+                                    if (mBLEManager != null) {
                                         mTimer.cancel();
-                                        mBLEManager2.stopScanning();
+                                        mBLEManager.stopScanning();
                                     }
                                 }
                             }
@@ -119,8 +120,6 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
         super.onResume();
         if (mViewPager.getCurrentItem() == 1) {
             if (checkBluetooth()) {
-                Log.e("onResume", "here");
-                mTimer.start();
                 startBLEScan();
             }
         }
@@ -132,9 +131,10 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_ENABLE_BT:
-                    if (mViewPager.getCurrentItem() == 1 && checkBluetooth()) {
-                        startBLEScan();
-                    }
+//                    if (mViewPager.getCurrentItem() == 1 && checkBluetooth()) {
+//                        startBLEScan();
+//                    }
+                    break;
             }
         } else {
             switch (requestCode) {
@@ -155,9 +155,9 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
                             if (result) {
                                 Log.e("onResult - onPause", "here");
                                 isScanning = false;
-                                if (mBLEManager2 != null) {
+                                if (mBLEManager != null) {
                                     mTimer.cancel();
-                                    mBLEManager2.stopScanning();
+                                    mBLEManager.stopScanning();
                                 }
                             }
                         }
@@ -172,15 +172,16 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
     }
 
     public void startBLEScan() {
+        Log.e("startBLEScan","here");
         // If this is the first activity, start advertising
         if (mTotalActivityCount == 1) {
             isScanning = true;
-            if (mBLEManager2 == null) {
-                mBLEManager2 = null;
+            if (mBLEManager == null) {
+                mBLEManager = null;
                 initializeBLEManager();
             }
             mTimer.start();
-            mBLEManager2.scanLeDevice();
+            mBLEManager.scanLeDevice();
             onBleInitializes();
         }
     }
@@ -206,11 +207,13 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
 
     @Override
     public void onDeviceFound(BluetoothDevice device) {
+        Log.e("onDeviceFound", "here");
         // TODO: save device address into shared preferences to be used in splash activity
         mBluetoothLeDevice = device;
         PreferenceManager.setDeviceAddress(getApplicationContext(), device.getAddress());
         // TODO: start main activity
         MainActivity.launch(this);
+        finish();
     }
 
     @Override
@@ -236,8 +239,8 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
                             public void onResult(boolean result) {
                                 if (result) {
                                     isScanning = false;
-                                    if (mBLEManager2 != null) {
-                                        mBLEManager2.stopScanning();
+                                    if (mBLEManager != null) {
+                                        mBLEManager.stopScanning();
                                     }
                                 }
                             }
@@ -254,19 +257,14 @@ public abstract class BaseBLEStartActivity<Presenter extends BasePresenter<View>
     public PagerCallback mCallback = new PagerCallback() {
         @Override
         public void onClick(android.view.View v) {
-            Log.e("item before", "" + mViewPager.getCurrentItem());
             mViewPager.setCurrentItem(1);
-            Log.e("item after", "" + mViewPager.getCurrentItem());
-            PermissionsUtil.checkLocationPermission(BaseBLEStartActivity.this,
-                    getString(R.string.error_location_permissions),
-                    new PermissionsUtil.PermissionUtilCallback() {
-                        @Override
-                        public void onResult(boolean result) {
-                            if (result) {
-                                startBLEScan();
-                            }
-                        }
-                    });
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    if (checkBluetooth()) {
+                        startBLEScan();
+                    }
+                }
+            }, 2000);
         }
     };
 }

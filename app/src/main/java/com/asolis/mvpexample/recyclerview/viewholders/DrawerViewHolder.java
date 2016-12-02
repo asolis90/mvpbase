@@ -25,10 +25,6 @@ public class DrawerViewHolder extends RecyclerView.ViewHolder {
         drawerItemImageView = (ImageView) itemView.findViewById(R.id.drawer_item_iv);
         drawerItemTitle= (TextView) itemView.findViewById(R.id.drawer_item_title);
         linearLayout = (LinearLayout) itemView.findViewById(R.id.drawer_item_ll);
-
-        drawerItemTitle.setText(item.getTitle());
-        drawerItemImageView.setImageResource(item.getIcon());
-
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,5 +35,7 @@ public class DrawerViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(DrawerItem item) {
         this.item = item;
+        drawerItemTitle.setText(item.getTitle());
+        drawerItemImageView.setImageResource(item.getIcon());
     }
 }

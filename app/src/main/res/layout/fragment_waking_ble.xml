@@ -18,7 +18,7 @@
             android:gravity="center_horizontal"
             android:paddingBottom="20dp"
             android:paddingTop="45dp"
-            android:text="@string/waking_ibag"
+            android:text="@string/waking_smart_bag"
             android:textSize="20sp" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:gravity="left"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
-            android:text="@string/waking_ibag_msg_body"
+            android:text="@string/waking_smart_bag_msg_body"
             android:textSize="16sp" />
 
 
@@ -41,7 +41,7 @@
             android:gravity="left"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
-            android:text="@string/waking_ibag_msg_sub_body"
+            android:text="@string/waking_smart_bag_msg_sub_body"
             android:textSize="16sp" />
     </LinearLayout>
 

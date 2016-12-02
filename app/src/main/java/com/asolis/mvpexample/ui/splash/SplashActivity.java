@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.View;
 
 import com.asolis.mvpexample.R;
+import com.asolis.mvpexample.ble.BLEService;
 import com.asolis.mvpexample.dagger.component.ApplicationComponent;
 import com.asolis.mvpexample.ui.base.BaseActivity;
 import com.asolis.mvpexample.ui.discover.DiscoverBLEActivity;
 import com.asolis.mvpexample.ui.main.MainActivity;
 import com.asolis.mvpexample.util.PreferenceManager;
+import com.asolis.mvpexample.util.ServiceUtil;
 import com.asolis.mvpexample.util.SnackbarUtil;
 
 import java.util.List;
@@ -37,9 +39,6 @@ public class SplashActivity extends BaseActivity<SplashActivityPresenter, Splash
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-//        getPresenter().onInit();
-
-        doStartDiscoverBLEActivity();
     }
 
     @Override
@@ -92,9 +91,10 @@ public class SplashActivity extends BaseActivity<SplashActivityPresenter, Splash
             for (BluetoothDevice device : devices) {
                 Log.e("device", "" + "found device");
                 if (device.getType() == BluetoothDevice.DEVICE_TYPE_LE) {
-                    if(PreferenceManager.getDeviceAddress(this) != null & PreferenceManager.getDeviceAddress(this).equals(device.getAddress()))
-                    {
-                        doStartMainActivity();
+                    if (PreferenceManager.getDeviceAddress(this) != null & PreferenceManager.getDeviceAddress(this).equals(device.getAddress())) {
+                        if (ServiceUtil.isMyServiceRunning(this, BLEService.class)) {
+
+                        }
                         break;
                     }
                 } else {
@@ -102,6 +102,16 @@ public class SplashActivity extends BaseActivity<SplashActivityPresenter, Splash
                     break;
                 }
             }
+        } else {
+            doStartDiscoverBLEActivity();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (PreferenceManager.getDeviceAddress(getApplicationContext()) != null) {
+            doStartMainActivity();
         } else {
             doStartDiscoverBLEActivity();
         }

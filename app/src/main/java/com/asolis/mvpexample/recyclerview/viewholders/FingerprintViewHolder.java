@@ -21,19 +21,19 @@ public class FingerprintViewHolder extends RecyclerView.ViewHolder {
 
     public FingerprintViewHolder(View itemView, final FingerprintAdapter.OnclickListener listener) {
         super(itemView);
-        drawerItemTitle= (TextView) itemView.findViewById(R.id.drawer_item_title);
+        drawerItemTitle = (TextView) itemView.findViewById(R.id.drawer_item_title);
         linearLayout = (LinearLayout) itemView.findViewById(R.id.drawer_item_ll);
 
-        drawerItemTitle.setText(item.getTitle());
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClick(item);
+                listener.onClick(view, item);
             }
         });
     }
 
     public void bind(FingerprintItem item) {
         this.item = item;
+        drawerItemTitle.setText(item.getTitle());
     }
 }

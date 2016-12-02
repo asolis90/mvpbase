@@ -32,9 +32,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_main_drawer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:clipToPadding="false"
-        android:paddingTop="@dimen/five_eighth_margin"
+        android:layout_gravity="start"
         android:scrollbars="vertical" />
 </android.support.v4.widget.DrawerLayout>
