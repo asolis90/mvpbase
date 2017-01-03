@@ -8,6 +8,8 @@ import com.asolis.mvpexample.dagger.component.DaggerApplicationComponent;
 import com.asolis.mvpexample.dagger.module.ApplicationModule;
 import com.asolis.mvpexample.dagger.module.UIModule;
 
+import pl.tajchert.nammu.Nammu;
+
 /**
  * Created by angelsolis on 11/3/16.
  */
@@ -19,6 +21,7 @@ public class MVPBaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         buildComponent();
+        Nammu.init(this);
     }
 
     private void buildComponent() {

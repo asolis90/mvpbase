@@ -2,4 +2,35 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Margins -->
+    <dimen name="sixteenth_margins">1dp</dimen>
+    <dimen name="eighth_margins">2dp</dimen>
+    <dimen name="quarter_margins">4dp</dimen>
+    <dimen name="half_margins">8dp</dimen>
+    <dimen name="five_eighth_margin">10dp</dimen>
+    <dimen name="three_fourths_margin">12dp</dimen>
+    <dimen name="standard_margins">16dp</dimen>
+    <dimen name="one_third_margins">20dp</dimen>
+    <dimen name="two_third_margins">24dp</dimen>
+    <dimen name="double_margins">32dp</dimen>
+    <dimen name="triple_margins">48dp</dimen>
+    <dimen name="quadruple_margins">64dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_size_h1">34sp</dimen>
+    <dimen name="text_size_h2">28sp</dimen>
+    <dimen name="text_size_h3">24sp</dimen>
+    <dimen name="text_size_h4">22sp</dimen>
+    <dimen name="text_size_h5">20sp</dimen>
+    <dimen name="text_size_h6">18sp</dimen>
+    <dimen name="text_size_p_large">16sp</dimen>
+    <dimen name="text_size_p_medium">14sp</dimen>
+    <dimen name="text_size_p_medium_2">13sp</dimen>
+    <dimen name="text_size_p_small">12sp</dimen>
+    <dimen name="text_size_p_xsmall">10sp</dimen>
+    <dimen name="text_size_p_xxsmall">8sp</dimen>
+
+    <!-- toolbar -->
+    <integer name="action_bar_elevation">7</integer>
 </resources>

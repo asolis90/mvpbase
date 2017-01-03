@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asolis.mvpexample" >
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:name=".application.MVPBaseApplication"
         android:allowBackup="true"
@@ -9,13 +17,44 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".ui.main.MainActivity" >
+
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+
+        <activity
+            android:name=".ui.discover.DiscoverBLEActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"  >
+        </activity>
+
+        <activity
+            android:name=".ui.fingerprintenroll.FingerprintEnrollActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"  >
+        </activity>
+
+        <service
+            android:name=".ble.BLEService"
+            android:process=":ble_process" />
+
+        <service
+            android:name=".ble.AdvertiserService"
+            android:process=":ble_adv" />
+
     </application>
 
 </manifest>

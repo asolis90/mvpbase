@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_fingerprint_add"
+        android:icon="@drawable/add_icon"
+        app:showAsAction="always"
+        android:title="add" />
+    <item
+        android:id="@+id/action_fingerprint_delete_all"
+        app:showAsAction="never"
+        android:title="Delete All" />
+</menu>
